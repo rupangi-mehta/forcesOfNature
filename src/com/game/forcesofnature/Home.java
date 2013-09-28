@@ -1,10 +1,12 @@
 package com.game.forcesofnature;
-import com.game.forcesofnature.GameSurfaceView.GameThread;
-
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.Window;
+
+import com.game.forcesofnature.GameSurfaceView.GameThread;
 
 public class Home extends Activity {
     
@@ -51,5 +53,21 @@ public class Home extends Activity {
     	createSurfaceView(null);
      }
 	
-	
+	@Override
+	public void onBackPressed() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(R.string.exit_dialog_message);
+		builder.setPositiveButton(R.string.yes_end, new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+		        	   finish();
+		           }
+		       });
+		builder.setNegativeButton(R.string.no_dont_end, new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+		        	   dialog.dismiss();
+		           }
+		       });
+		AlertDialog dialog = builder.create();
+		dialog.show();
+	}
 }

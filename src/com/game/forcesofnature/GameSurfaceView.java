@@ -1,7 +1,9 @@
 package com.game.forcesofnature;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
@@ -10,6 +12,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
@@ -291,40 +294,40 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 		
 		private void initialiseVariables(){
 			mRedObstacleX = new float[10];
-	        mRedObstacleX[0] = 30f;
-	        mRedObstacleX[1] = 60f;
-	        mRedObstacleX[2] = 70f;
+	        mRedObstacleX[0] = 50f;
+	        mRedObstacleX[1] = 100f;
+	        mRedObstacleX[2] = 160f;
 	        mRedObstacleX[3] = 10f;
-	        mRedObstacleX[4] = 90f;
-	        mRedObstacleX[5] = 40f;
-	        mRedObstacleX[6] = 55f;
-	        mRedObstacleX[7] = 80f;
-	        mRedObstacleX[8] = 20f;
-	        mRedObstacleX[9] = 45f;
+	        mRedObstacleX[4] = 70f;
+	        mRedObstacleX[5] = 210f;
+	        mRedObstacleX[6] = 90f;
+	        mRedObstacleX[7] = 120f;
+	        mRedObstacleX[8] = 170f;
+	        mRedObstacleX[9] = 30f;
 	        
 	        mRedObstacleY = new float[10];
-	        mRedObstacleY[0] = 10f;
-	        mRedObstacleY[1] = 60f;
-	        mRedObstacleY[2] = 100f;
-	        mRedObstacleY[3] = 150f;
-	        mRedObstacleY[4] = 190f;
-	        mRedObstacleY[5] = 240f;
-	        mRedObstacleY[6] = 290f;
-	        mRedObstacleY[7] = 330f;
-	        mRedObstacleY[8] = 380f;
-	        mRedObstacleY[9] = 430f;
+	        mRedObstacleY[0] = 100f;
+	        mRedObstacleY[1] = 200f;
+	        mRedObstacleY[2] = 300f;
+	        mRedObstacleY[3] = 400f;
+	        mRedObstacleY[4] = 500f;
+	        mRedObstacleY[5] = 600f;
+	        mRedObstacleY[6] = 700f;
+	        mRedObstacleY[7] = 800f;
+	        mRedObstacleY[8] = 900f;
+	        mRedObstacleY[9] = 1000f;
 	        
 	        mRedObstacleXVariation = new float[10];
-	        mRedObstacleXVariation[0] = -1f;
-	        mRedObstacleXVariation[1] = -1.5f;
-	        mRedObstacleXVariation[2] = -2f;
-	        mRedObstacleXVariation[3] = -3f;
-	        mRedObstacleXVariation[4] = -1f;
-	        mRedObstacleXVariation[5] = -2f;
-	        mRedObstacleXVariation[6] = -1.5f;
-	        mRedObstacleXVariation[7] = 2.5f;
-	        mRedObstacleXVariation[8] = -4f;
-	        mRedObstacleXVariation[9] = -1.1f;
+	        mRedObstacleXVariation[0] = 70f;
+	        mRedObstacleXVariation[1] = 200f;
+	        mRedObstacleXVariation[2] = 90f;
+	        mRedObstacleXVariation[3] = 10f;
+	        mRedObstacleXVariation[4] = 10f;
+	        mRedObstacleXVariation[5] = 10f;
+	        mRedObstacleXVariation[6] = 10f;
+	        mRedObstacleXVariation[7] = 10f;
+	        mRedObstacleXVariation[8] = 10f;
+	        mRedObstacleXVariation[9] = 10f;
 	        
 	        mCircleCentreX = mCircleRadius;
 	        mCircleCentreY = mCircleRadius;
@@ -375,14 +378,16 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 			/**This method draws the grid, numbers, score, next number
 			 * and arrows on the canvas
 			 */
-			mCanvas.save();
-			mCanvas.restore();
-			mCanvas.drawColor(0,PorterDuff.Mode.CLEAR);
-			drawTarget();
-			drawCollisions();
-			drawOtherRectangles();
-			drawUserCircle();
-			canvas.save();
+			if(mCanvas!=null){
+				mCanvas.save();
+				mCanvas.restore();
+				mCanvas.drawColor(0,PorterDuff.Mode.CLEAR);
+				drawTarget();
+				drawCollisions();
+				drawOtherRectangles();
+				drawUserCircle();
+				canvas.save();
+			}
 		}
 		
 		private void drawUserCircle(){
@@ -405,16 +410,49 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 			int i = 0;
 			while (i < length){
 				if (mCollidedCircles[i]){
-					//TODO pop up, game over!
+					
 				}
 				i += 1;
 			}
 		}
 		
+		private void setWinningDialogBox() {
+			AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+			builder.setTitle(R.string.winning_title);
+			builder.setMessage(R.string.winning_dialog_message);
+			builder.setPositiveButton(R.string.yes_share, new DialogInterface.OnClickListener() {
+			           public void onClick(DialogInterface dialog, int id) {
+			        	   showShareOptions();
+			        	   dialog.dismiss();
+			           }
+
+			       });
+			builder.setNegativeButton(R.string.no_dont_share, new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+		        	   dialog.dismiss();
+		           }
+		       });
+			AlertDialog dialog = builder.create();
+			dialog.show();
+		}
+
+		private void showShareOptions() {
+			//TODO
+		}
+
 		private void drawTarget(){
 			//this is where the target becomes white from red!!
 			if (mTarget){
 				mCanvas.drawRect(mScreenCentreX * 2 - mCircleRadius * 2, mScreenCentreY * 2 - mCircleRadius * 2, mScreenCentreX * 2, mScreenCentreY * 2, mPaintWhite);
+				mRunningMode = STATE_WIN;
+				new Handler(Looper.getMainLooper()).post(new Runnable() {
+					
+					@Override
+					public void run() {
+						setWinningDialogBox();
+						
+					}
+				});
 			} else {
 				mCanvas.drawRect(mScreenCentreX * 2 - mCircleRadius * 2, mScreenCentreY * 2 - mCircleRadius * 2, mScreenCentreX * 2, mScreenCentreY * 2, mPaintRed);
 			}
@@ -451,7 +489,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 			i = 0;
 			while (i < length){
 				mRedObstacleX[i] += mRedObstacleXVariation[i];
-				if (mRedObstacleX[i] - mRedObstacleY[i] < 1f || mRedObstacleX[i]  > mScreenCentreX * 2){
+				if (mRedObstacleX[i] - mRedObstacleY[i] < 1f || mRedObstacleX[i] + mRedObstacleY[i] > mScreenCentreX * 2){
 					mRedObstacleXVariation[i] = mRedObstacleXVariation[i] * (-1f);
 				}
 				i += 1;
