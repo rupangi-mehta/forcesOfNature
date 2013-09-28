@@ -1,5 +1,4 @@
 package com.game.forcesofnature;
-
 import com.game.forcesofnature.GameSurfaceView.GameThread;
 
 import android.app.Activity;
@@ -9,8 +8,8 @@ import android.view.Window;
 
 public class Home extends Activity {
     
-	private GameSurfaceView mGameView;
 	private GameThread mGameThread;
+	private GameSurfaceView mGameView;
 	
 	
 	/** Called when the activity is first created. */
@@ -18,10 +17,8 @@ public class Home extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        createSurfaceView(savedInstanceState);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        setContentView(R.layout.main);
-        
+        	createSurfaceView(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);        
     }
     
     @Override
@@ -38,7 +35,7 @@ public class Home extends Activity {
 		setContentView(R.layout.main);
         
 		mGameView = (GameSurfaceView) findViewById(R.id.gameview);
-		mGameThread = mGameView.getThread();
+        mGameThread = mGameView.getThread();
         
         mGameView.setPlayActivity(this);
     }
