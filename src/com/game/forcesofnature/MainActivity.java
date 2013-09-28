@@ -1,8 +1,13 @@
 package com.game.forcesofnature;
 
-import android.os.Bundle;
+import com.game.forcesofnature.playgame.PlayGame;
+
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
 
 public class MainActivity extends Activity {
 
@@ -10,6 +15,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setListeners();
     }
 
 
@@ -19,5 +25,26 @@ public class MainActivity extends Activity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+    
+
+	private void setListeners() {
+		Button playButton= (Button) findViewById(R.id.playButton);
+		playButton.setOnClickListener(new View.OnClickListener() {
+		    @Override
+		    public void onClick(View v) {
+		    	Intent intent = new Intent(MainActivity.this, PlayGame.class);
+		    	startActivity(intent);
+		    }
+		});
+		
+		Button helpButton= (Button) findViewById(R.id.howToPlayButton);
+	    helpButton.setOnClickListener(new View.OnClickListener() {
+		    @Override
+		    public void onClick(View v) {
+		    	Intent intent = new Intent(MainActivity.this, HelpGame.class);
+		    	startActivity(intent);
+		    }  
+	    });
+	}
     
 }

@@ -3,6 +3,9 @@
 
     <string name="app_name">forcesOfNature</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="play">COME PLAY!</string>
+    <string name="how_to_play">How To Play</string>
+    <string name="begin_game">Begin Game</string>
+    <string name="instructions">Instructions to Play</string>
 
 </resources>
