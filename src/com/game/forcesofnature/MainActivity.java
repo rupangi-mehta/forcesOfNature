@@ -1,6 +1,5 @@
 package com.game.forcesofnature;
 
-import com.game.forcesofnature.playgame.PlayGame;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -32,7 +31,7 @@ public class MainActivity extends Activity {
 		playButton.setOnClickListener(new View.OnClickListener() {
 		    @Override
 		    public void onClick(View v) {
-		    	Intent intent = new Intent(MainActivity.this, PlayGame.class);
+		    	Intent intent = new Intent(MainActivity.this, Home.class);
 		    	startActivity(intent);
 		    }
 		});
