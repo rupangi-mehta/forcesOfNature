@@ -1,5 +1,7 @@
 package com.game.forcesofnature.level1;
 
+import java.util.HashMap;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -12,8 +14,10 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
@@ -34,6 +38,10 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 	private Context mContext;
 	private Activity mActivity;
 	private boolean mThreadIsRunning = false;
+	
+	//audio
+	private SoundPool sp;
+	private MediaPlayer mPlayer, mPlayer2, mPlayer3;
 	
 	private Paint mPaintWhite;
 	private Paint mPaintRed;
@@ -63,6 +71,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 	/*Obstacle metrics*/
 	private static final int OBST_RECT_WIDTH = 80;
 	private static final int OBST_RECT_HEIGHT = 40;
+		
 	
 	public GameSurfaceView(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -154,6 +163,16 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         mSensorY[7] = 0f;
         mSensorY[8] = 0f;
         mSensorY[9] = 0f;
+        
+     
+        
+        /*Audio initializations*/
+        sp = new SoundPool(2, AudioManager.STREAM_MUSIC, 0);
+        int SoundID = sp.load(mContext, R.raw.bgmusic, 0); // in 2nd param u have to pass your desire ringtone
+        sp.play(SoundID, 1, 1, 0, 0, 1);
+        mPlayer = MediaPlayer.create(mContext, R.raw.bgmusic); // in 2nd param u have to pass your desire ringtone
+        mPlayer.start();
+        mPlayer.setLooping(true);
     }
 	
 	@Override
@@ -175,6 +194,9 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
 	@Override
 	public void surfaceDestroyed(SurfaceHolder holder) {
+		//audio
+		mPlayer.pause();
+		mPlayer.stop();
 		boolean retry = true;
         mThread.setRunning(false);
         mSensorManager.unregisterListener(this);
@@ -409,6 +431,11 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 			while (i < length){
 				if (mCollidedCircles[i]){
 					mCanvas.drawCircle(mCircleCentreX, mCircleCentreY, mCircleRadius, mPaintBlue);
+					//audio
+					mPlayer.pause();
+					mPlayer2 = MediaPlayer.create(mContext, R.raw.lifelost); // in 2nd param u have to pass your desire ringtone
+				    mPlayer2.start();
+				    mPlayer.setLooping(false);
 					mRun = false;
 				}
 				i += 1;
@@ -517,6 +544,11 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 		
 		private void checkTarget(){
 			if (mCircleCentreX > mScreenCentreX * 2 - mCircleRadius * 2 && mCircleCentreY > mScreenCentreY * 2 - mCircleRadius * 2){
+				//audio
+				mPlayer.pause();
+				mPlayer3 = MediaPlayer.create(mContext, R.raw.success); // in 2nd param u have to pass your desire ringtone
+			    mPlayer3.start();
+			    mPlayer.setLooping(false);
 				mTarget = true;
 			}
 		}
