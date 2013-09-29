@@ -17,5 +17,8 @@
     <string name="continue_text">Continue.</string>
     <string name="yes_share">Yes, Share Victory!</string>
     <string name="no_dont_share">No, Continue to Level 2.</string>
-
+    <string name="sorry">Sorry!</string>
+    <string name="lost_game_message">You have lost this level, select \'Try Again\' to give it another shot.</string>
+    <string name="try_again">Try Again.</string>
+	<string name="end_game">End Game</string>
 </resources>

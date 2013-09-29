@@ -449,7 +449,9 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 			builder.setPositiveButton(R.string.continue_text, new DialogInterface.OnClickListener() {
 			           public void onClick(DialogInterface dialog, int id) {
 			        	   dialog.dismiss();
+			        	   ((Activity)mContext).finish();
 							Intent i = new Intent(mContext, LevelTwoActivity.class);
+							i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 							mContext.startActivity(i);
 			           }
 			       });
@@ -530,6 +532,13 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 				
 				if ((distX <= mCircleRadius) && (distY <= mCircleRadius)) {
 					mCollidedCircles[i] = true;
+					((Activity) mContext).runOnUiThread(new Runnable() {
+						
+						@Override
+						public void run() {
+							showLostDialogBox();
+						}
+					});
 					//mCanvas.drawCircle(mCircleCentreX, mCircleCentreY, mCircleRadius, mPaintBlue);
 					break;
 				}
@@ -542,6 +551,27 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 			}
 		}
 		
+		private void showLostDialogBox() {
+			AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+			builder.setTitle(R.string.sorry);
+			builder.setMessage(R.string.lost_game_message);
+			builder.setPositiveButton(R.string.try_again, new DialogInterface.OnClickListener() {
+			           public void onClick(DialogInterface dialog, int id) {
+			        	   ((Activity)mContext).finish();
+			        	   Intent i = new Intent(mContext, Home.class);
+							i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+							mContext.startActivity(i);
+			           }
+			       });
+			builder.setNegativeButton(R.string.end_game, new DialogInterface.OnClickListener() {
+			           public void onClick(DialogInterface dialog, int id) {
+			        	   ((Activity)mContext).finish();
+			           }
+			       });
+			AlertDialog dialog = builder.create();
+			dialog.show();
+		}
+
 		private void checkTarget(){
 			if (mCircleCentreX > mScreenCentreX * 2 - mCircleRadius * 2 && mCircleCentreY > mScreenCentreY * 2 - mCircleRadius * 2){
 				//audio

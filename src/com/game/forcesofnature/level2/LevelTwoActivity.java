@@ -13,7 +13,7 @@ public class LevelTwoActivity extends Activity {
     
 	private GameThread mGameThread;
 	private LevelTwoSurfaceView mGameView;
-	
+	private boolean hasWonL2 = false;
 	
 	/** Called when the activity is first created. */
     @Override
