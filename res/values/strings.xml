@@ -7,5 +7,12 @@
     <string name="how_to_play">How To Play</string>
     <string name="begin_game">Begin Game</string>
     <string name="instructions">Instructions to Play</string>
+    <string name="exit_dialog_message">Are you sure you want to exit the game?</string>
+    <string name="yes_end">Yes, End Game</string>
+    <string name="no_dont_end">No, Go Back!</string>
+    <string name="winning_title">Congratulations!</string>
+    <string name="winning_dialog_message">You\'ve completed level 1. Would you like to share your success on facebook?</string>
+    <string name="yes_share">Yes, Share Victory!</string>
+    <string name="no_dont_share">No, Continue to Level 2.</string>
 
 </resources>

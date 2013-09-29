@@ -34,6 +34,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 	private Paint mPaintWhite;
 	private Paint mPaintRed;
 	private Paint mPaintYellow;
+	private Paint mPaintBlue;
+	
 	
 	private Sensor mAccelerometer;
 	private SensorManager mSensorManager;
@@ -53,6 +55,10 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 	private static final int LOW_DPI_STATUS_BAR_HEIGHT = 19;
 	private static final int MEDIUM_DPI_STATUS_BAR_HEIGHT = 25;
 	private static final int HIGH_DPI_STATUS_BAR_HEIGHT = 38;
+
+	/*Obstacle metrics*/
+	private static final int OBST_RECT_WIDTH = 80;
+	private static final int OBST_RECT_HEIGHT = 40;
 	
 	public GameSurfaceView(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -93,6 +99,9 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 		mPaintYellow = new Paint();
 		mPaintYellow.setColor(0xFFFFFF00);
 		mPaintYellow.setStrokeWidth(1);
+		mPaintBlue = new Paint();
+		mPaintBlue.setColor(0xFF0000FF);
+		mPaintBlue.setStrokeWidth(1);
 		
 		
 		mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -383,9 +392,15 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 				mCanvas.restore();
 				mCanvas.drawColor(0,PorterDuff.Mode.CLEAR);
 				drawTarget();
+<<<<<<< Updated upstream
 				drawCollisions();
 				drawOtherRectangles();
 				drawUserCircle();
+=======
+				drawOtherRectangles();
+				drawUserCircle();
+				drawCollisions();
+>>>>>>> Stashed changes
 				canvas.save();
 			}
 		}
@@ -399,18 +414,24 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 			int length = mRedObstacleX.length;
 			int i = 0;
 			while (i < length){
-				mCanvas.drawRect(mRedObstacleX[i],mRedObstacleY[i] , mRedObstacleX[i]+80f , mRedObstacleY[i] +40f, mPaintYellow);
+				mCanvas.drawRect(mRedObstacleX[i],mRedObstacleY[i] , mRedObstacleX[i] + OBST_RECT_WIDTH , mRedObstacleY[i] + OBST_RECT_HEIGHT, mPaintYellow);
 				i +=1 ;
 			}
 		}
 		
 		private void drawCollisions(){
-			// the part that changes red balls to have a yellow backgroung.. MAYBE have a pop-up
+			// the part that changes red balls to have a yellow background.. MAYBE have a pop-up
 			int length = mCollidedCircles.length;
 			int i = 0;
 			while (i < length){
 				if (mCollidedCircles[i]){
+<<<<<<< Updated upstream
 					
+=======
+					//LOSE
+					mCanvas.drawCircle(mCircleCentreX, mCircleCentreY, mCircleRadius, mPaintBlue);
+					mRun = false;
+>>>>>>> Stashed changes
 				}
 				i += 1;
 			}
@@ -489,7 +510,11 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 			i = 0;
 			while (i < length){
 				mRedObstacleX[i] += mRedObstacleXVariation[i];
+<<<<<<< Updated upstream
 				if (mRedObstacleX[i] - mRedObstacleY[i] < 1f || mRedObstacleX[i] + mRedObstacleY[i] > mScreenCentreX * 2){
+=======
+				if (mRedObstacleX[i] < 1f || mRedObstacleX[i]+OBST_RECT_WIDTH  > mScreenCentreX * 2){
+>>>>>>> Stashed changes
 					mRedObstacleXVariation[i] = mRedObstacleXVariation[i] * (-1f);
 				}
 				i += 1;
@@ -504,11 +529,19 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 			int length = mRedObstacleX.length;
 			int i = 0;
 			while (i < length){
-				float centresDistanceSquared = (mCircleCentreX - mRedObstacleX[i]) * (mCircleCentreX - mRedObstacleX[i]) + (mCircleCentreY - mRedObstacleY[i]) * (mCircleCentreY - mRedObstacleY[i]);  
-				float radiiDistanceSquared = (mCircleRadius + mRedObstacleY[i]) * (mCircleRadius + mRedObstacleY[i]);
+				float distX = Math.min((Math.abs(mRedObstacleX[i] - mCircleCentreX)), (Math.abs(mRedObstacleX[i] + OBST_RECT_WIDTH - mCircleCentreX)));
+				float distY = Math.min((Math.abs(mRedObstacleY[i] - mCircleCentreY)), (Math.abs(mRedObstacleY[i] + OBST_RECT_HEIGHT -mCircleCentreY)));
+				
+				if ((distX <= mCircleRadius) && (distY <= mCircleRadius)) {
+					mCollidedCircles[i] = true;
+					//mCanvas.drawCircle(mCircleCentreX, mCircleCentreY, mCircleRadius, mPaintBlue);
+					break;
+				}
+				/*float centresDistanceSquared = (mCircleCentreX - mRedObstacleX[i]) * (mCircleCentreX - mRedObstacleX[i]) + (mCircleCentreY - mRedObstacleY[i]) * (mCircleCentreY - mRedObstacleY[i]);  
+				float radiiDistanceSquared = (mCircleRadius) * (mCircleRadius);
 				if (centresDistanceSquared <= radiiDistanceSquared){
 					mCollidedCircles[i] = true;
-				}
+				}*/
 				i += 1;
 			}
 		}
