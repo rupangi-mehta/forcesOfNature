@@ -486,7 +486,6 @@ public class LevelThreeSurfaceView extends SurfaceView implements SurfaceHolder.
 			
 			checkCollision();
 			checkTarget();
-			
 		}
 		
 		private void checkCollision(){
