@@ -1,10 +1,13 @@
 package com.game.forcesofnature;
 
 
-import com.game.forcesofnature.level1.Home;
+import java.util.HashMap;
 
+import com.game.forcesofnature.level1.Home;
 import android.app.Activity;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
