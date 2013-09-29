@@ -25,19 +25,22 @@ public final class R {
         public static final int cliff=0x7f020001;
         public static final int displayimage1=0x7f020002;
         public static final int door=0x7f020003;
-        public static final int ic_launcher=0x7f020004;
-        public static final int insrtructions_page=0x7f020005;
-        public static final int random_backbround=0x7f020006;
-        public static final int rubberguy1=0x7f020007;
-        public static final int rubberguy2=0x7f020008;
-        public static final int spikes=0x7f020009;
+        public static final int game_name=0x7f020004;
+        public static final int ic_launcher=0x7f020005;
+        public static final int insrtructions_page=0x7f020006;
+        public static final int neon_waves=0x7f020007;
+        public static final int random_backbround=0x7f020008;
+        public static final int rubberguy1=0x7f020009;
+        public static final int rubberguy2=0x7f02000a;
+        public static final int spikes=0x7f02000b;
     }
     public static final class id {
-        public static final int action_settings=0x7f090004;
+        public static final int action_settings=0x7f090005;
         public static final int displayImage=0x7f090000;
-        public static final int gameview=0x7f090003;
-        public static final int howToPlayButton=0x7f090002;
-        public static final int playButton=0x7f090001;
+        public static final int gameview=0x7f090004;
+        public static final int howToPlayButton=0x7f090003;
+        public static final int playButton=0x7f090002;
+        public static final int random_neon_image=0x7f090001;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;

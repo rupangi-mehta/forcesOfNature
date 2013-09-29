@@ -8,40 +8,52 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" 
-    android:background="@drawable/random_backbround">
+    android:background="@android:color/black">
     
      <ImageView 
+         android:id="@+id/displayImage"
          android:layout_margin="20dp"
          android:padding="10dp"
          android:layout_centerHorizontal="true"
-         android:id="@+id/displayImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:contentDescription="Game Name"
-        android:src="@drawable/displayimage1"/>
+        android:src="@drawable/game_name"/>
     
+     <ImageView 
+         android:id="@+id/random_neon_image"
+         android:layout_margin="20dp"
+         android:padding="10dp"
+         android:layout_centerHorizontal="true"
+        android:layout_below="@id/displayImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="just neon"
+        android:src="@drawable/neon_waves" />
+     
     <Button
-        android:layout_margin="20dp"
         android:id="@+id/playButton"
+        android:layout_margin="20dp"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_below="@id/displayImage"
+        android:layout_below="@id/random_neon_image"
         android:text="@string/play" 
+        android:textSize="22sp"
         android:textColor="@android:color/white"
         android:background="@drawable/button_background"/>
     
     <Button
-        android:layout_margin="20dp"
         android:id="@+id/howToPlayButton"
+        android:layout_margin="20dp"
         android:layout_width="wrap_content"
+        android:textSize="22sp"
         android:layout_centerHorizontal="true"
         android:layout_height="50dp"
         android:layout_below="@id/playButton"
         android:text="@string/how_to_play"
         android:textColor="@android:color/white"
-        android:background="@drawable/button_background" />
-    
+        android:background="@drawable/button_background"/>
     
     
     
