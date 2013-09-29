@@ -12,17 +12,17 @@
     
      <ImageView 
          android:id="@+id/displayImage"
-         android:layout_margin="20dp"
+         android:layout_margin="10dp"
          android:padding="10dp"
          android:layout_centerHorizontal="true"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:contentDescription="Game Name"
         android:src="@drawable/game_name"/>
     
      <ImageView 
          android:id="@+id/random_neon_image"
-         android:layout_margin="20dp"
+         android:layout_margin="10dp"
          android:padding="10dp"
          android:layout_centerHorizontal="true"
         android:layout_below="@id/displayImage"
@@ -33,7 +33,7 @@
      
     <Button
         android:id="@+id/playButton"
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
@@ -45,7 +45,7 @@
     
     <Button
         android:id="@+id/howToPlayButton"
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
         android:layout_width="wrap_content"
         android:textSize="22sp"
         android:layout_centerHorizontal="true"
