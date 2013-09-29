@@ -11,7 +11,10 @@
     <string name="yes_end">Yes, End Game</string>
     <string name="no_dont_end">No, Go Back!</string>
     <string name="winning_title">Congratulations!</string>
-    <string name="winning_dialog_message">You\'ve completed level 1. Would you like to share your success on facebook?</string>
+    <string name="winning_dialog_message1">You\'ve completed Level 1.\nContinue to Level 2</string>
+    <string name="winning_dialog_message2">You\'ve completed Level 2.\nContinue to Level 3</string>
+    <string name="winning_dialog_message3">You\'ve completed Level 3. Stay tuned, More to come soon.</string>
+    <string name="continue_text">Continue.</string>
     <string name="yes_share">Yes, Share Victory!</string>
     <string name="no_dont_share">No, Continue to Level 2.</string>
 

@@ -1,9 +1,13 @@
-package com.game.forcesofnature;
+package com.game.forcesofnature.level2;
+
+import com.game.forcesofnature.R;
+import com.game.forcesofnature.level3.LevelThreeActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
@@ -12,7 +16,6 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
@@ -24,7 +27,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.WindowManager;
 
-public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callback,SensorEventListener  {
+public class LevelTwoSurfaceView extends SurfaceView implements SurfaceHolder.Callback,SensorEventListener  {
 
 	private GameThread mThread;
 	private Context mContext;
@@ -60,7 +63,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 	private static final int OBST_RECT_WIDTH = 80;
 	private static final int OBST_RECT_HEIGHT = 40;
 	
-	public GameSurfaceView(Context context, AttributeSet attrs) {
+	public LevelTwoSurfaceView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		
 		mContext = context;
@@ -302,61 +305,45 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         }
 		
 		private void initialiseVariables(){
-			mRedObstacleX = new float[10];
-	        mRedObstacleX[0] = 50f;
-	        mRedObstacleX[1] = 100f;
-	        mRedObstacleX[2] = 160f;
-	        mRedObstacleX[3] = 10f;
-	        mRedObstacleX[4] = 70f;
-	        mRedObstacleX[5] = 210f;
-	        mRedObstacleX[6] = 90f;
-	        mRedObstacleX[7] = 120f;
-	        mRedObstacleX[8] = 170f;
-	        mRedObstacleX[9] = 30f;
+			mRedObstacleX = new float[6];
+	        mRedObstacleX[0] = 450f;
+	        mRedObstacleX[1] = 10f;
+	        mRedObstacleX[2] = 560f;
+	        mRedObstacleX[3] = 290f;
+	        mRedObstacleX[4] = 60f;
+	        mRedObstacleX[5] = 610f;
 	        
-	        mRedObstacleY = new float[10];
-	        mRedObstacleY[0] = 100f;
-	        mRedObstacleY[1] = 200f;
-	        mRedObstacleY[2] = 300f;
-	        mRedObstacleY[3] = 400f;
-	        mRedObstacleY[4] = 500f;
-	        mRedObstacleY[5] = 600f;
-	        mRedObstacleY[6] = 700f;
-	        mRedObstacleY[7] = 800f;
-	        mRedObstacleY[8] = 900f;
-	        mRedObstacleY[9] = 1000f;
+	        mRedObstacleY = new float[6];
+	        mRedObstacleY[0] = 200f;
+	        mRedObstacleY[1] = 300f;
+	        mRedObstacleY[2] = 400f;
+	        mRedObstacleY[3] = 600f;
+	        mRedObstacleY[4] = 800f;
+	        mRedObstacleY[5] = 900f;
 	        
-	        mRedObstacleXVariation = new float[10];
-	        mRedObstacleXVariation[0] = 70f;
-	        mRedObstacleXVariation[1] = 200f;
-	        mRedObstacleXVariation[2] = 90f;
-	        mRedObstacleXVariation[3] = 10f;
-	        mRedObstacleXVariation[4] = 10f;
-	        mRedObstacleXVariation[5] = 10f;
-	        mRedObstacleXVariation[6] = 10f;
-	        mRedObstacleXVariation[7] = 10f;
-	        mRedObstacleXVariation[8] = 10f;
-	        mRedObstacleXVariation[9] = 10f;
+	        mRedObstacleXVariation = new float[6];
+	        mRedObstacleXVariation[0] = 7f;
+	        mRedObstacleXVariation[1] = 7f;
+	        mRedObstacleXVariation[2] = 7f;
+	        mRedObstacleXVariation[3] = 7f;
+	        mRedObstacleXVariation[4] = 7f;
+	        mRedObstacleXVariation[5] = 7f;
 	        
 	        mCircleCentreX = mCircleRadius;
 	        mCircleCentreY = mCircleRadius;
 	        
-	        mCollidedCircles = new boolean[10];
+	        mCollidedCircles = new boolean[6];
 	        mCollidedCircles[0] = false;
 	        mCollidedCircles[1] = false;
 	        mCollidedCircles[2] = false;
 	        mCollidedCircles[3] = false;
 	        mCollidedCircles[4] = false;
 	        mCollidedCircles[5] = false;
-	        mCollidedCircles[6] = false;
-	        mCollidedCircles[7] = false;
-	        mCollidedCircles[8] = false;
-	        mCollidedCircles[9] = false;
 	     }
 		
 		@Override
         public void run() {
-			while (mRun) {
+			while (mRun && mRunningMode == STATE_RUNNING) {
             	try {
                     mCanvas = mSurfaceHolder.lockCanvas(null);
                     synchronized (mSurfaceHolder) {
@@ -366,7 +353,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
                         doDraw(mCanvas);
                     }
                 } finally {
-                    if (mCanvas != null) {
+                    if (mCanvas != null && mSurfaceHolder!= null ) {
                         mSurfaceHolder.unlockCanvasAndPost(mCanvas);
                     }
                 }
@@ -392,15 +379,9 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 				mCanvas.restore();
 				mCanvas.drawColor(0,PorterDuff.Mode.CLEAR);
 				drawTarget();
-<<<<<<< Updated upstream
-				drawCollisions();
-				drawOtherRectangles();
-				drawUserCircle();
-=======
 				drawOtherRectangles();
 				drawUserCircle();
 				drawCollisions();
->>>>>>> Stashed changes
 				canvas.save();
 			}
 		}
@@ -425,13 +406,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 			int i = 0;
 			while (i < length){
 				if (mCollidedCircles[i]){
-<<<<<<< Updated upstream
-					
-=======
-					//LOSE
 					mCanvas.drawCircle(mCircleCentreX, mCircleCentreY, mCircleRadius, mPaintBlue);
 					mRun = false;
->>>>>>> Stashed changes
 				}
 				i += 1;
 			}
@@ -440,40 +416,38 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 		private void setWinningDialogBox() {
 			AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 			builder.setTitle(R.string.winning_title);
-			builder.setMessage(R.string.winning_dialog_message);
-			builder.setPositiveButton(R.string.yes_share, new DialogInterface.OnClickListener() {
+			builder.setMessage(R.string.winning_dialog_message2);
+			builder.setPositiveButton(R.string.continue_text, new DialogInterface.OnClickListener() {
 			           public void onClick(DialogInterface dialog, int id) {
-			        	   showShareOptions();
 			        	   dialog.dismiss();
+			        	   
+			        	   Intent intent = new Intent(mContext, LevelThreeActivity.class);
+			        	   mContext.startActivity(intent);
 			           }
 
 			       });
-			builder.setNegativeButton(R.string.no_dont_share, new DialogInterface.OnClickListener() {
-		           public void onClick(DialogInterface dialog, int id) {
-		        	   dialog.dismiss();
-		           }
-		       });
 			AlertDialog dialog = builder.create();
 			dialog.show();
-		}
-
-		private void showShareOptions() {
-			//TODO
 		}
 
 		private void drawTarget(){
 			//this is where the target becomes white from red!!
 			if (mTarget){
 				mCanvas.drawRect(mScreenCentreX * 2 - mCircleRadius * 2, mScreenCentreY * 2 - mCircleRadius * 2, mScreenCentreX * 2, mScreenCentreY * 2, mPaintWhite);
-				mRunningMode = STATE_WIN;
-				new Handler(Looper.getMainLooper()).post(new Runnable() {
-					
-					@Override
-					public void run() {
-						setWinningDialogBox();
-						
-					}
-				});
+				((Activity)mContext).runOnUiThread(new Runnable() {
+
+	                @Override
+	                public void run() {
+	                	mRunningMode = STATE_WIN;
+	                	((Activity) mContext).runOnUiThread(new Runnable() {
+	                		
+	                		@Override
+	                		public void run() {
+	                			setWinningDialogBox();
+	                		}
+	                	});
+	                }
+	            });
 			} else {
 				mCanvas.drawRect(mScreenCentreX * 2 - mCircleRadius * 2, mScreenCentreY * 2 - mCircleRadius * 2, mScreenCentreX * 2, mScreenCentreY * 2, mPaintRed);
 			}
@@ -510,11 +484,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 			i = 0;
 			while (i < length){
 				mRedObstacleX[i] += mRedObstacleXVariation[i];
-<<<<<<< Updated upstream
-				if (mRedObstacleX[i] - mRedObstacleY[i] < 1f || mRedObstacleX[i] + mRedObstacleY[i] > mScreenCentreX * 2){
-=======
+
 				if (mRedObstacleX[i] < 1f || mRedObstacleX[i]+OBST_RECT_WIDTH  > mScreenCentreX * 2){
->>>>>>> Stashed changes
 					mRedObstacleXVariation[i] = mRedObstacleXVariation[i] * (-1f);
 				}
 				i += 1;

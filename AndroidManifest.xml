@@ -27,10 +27,9 @@
             </intent-filter>
         </activity>
         <activity android:name="com.game.forcesofnature.HelpGame" />
-        
-         <activity android:name="com.game.forcesofnature.Home">
-
-        </activity>
+         <activity android:name="com.game.forcesofnature.level1.Home"/>
+         <activity android:name="com.game.forcesofnature.level2.LevelTwoActivity"/>
+         <activity android:name="com.game.forcesofnature.level3.LevelThreeActivity"/>
         </application>
 
 </manifest>

@@ -1,4 +1,8 @@
-package com.game.forcesofnature;
+package com.game.forcesofnature.level3;
+
+import com.game.forcesofnature.R;
+import com.game.forcesofnature.level3.LevelThreeSurfaceView.GameThread;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -6,12 +10,9 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.Window;
 
-import com.game.forcesofnature.GameSurfaceView.GameThread;
-
-public class Home extends Activity {
-    
+public class LevelThreeActivity extends Activity {
 	private GameThread mGameThread;
-	private GameSurfaceView mGameView;
+	private LevelThreeSurfaceView mGameView;
 	
 	
 	/** Called when the activity is first created. */
@@ -34,9 +35,9 @@ public class Home extends Activity {
     }
 	
 	private void createSurfaceView(Bundle savedInstanceState){
-		setContentView(R.layout.main);
+		setContentView(R.layout.main_level_3);
         
-		mGameView = (GameSurfaceView) findViewById(R.id.gameview);
+		mGameView = (LevelThreeSurfaceView) findViewById(R.id.gameview);
         mGameThread = mGameView.getThread();
         
         mGameView.setPlayActivity(this);
